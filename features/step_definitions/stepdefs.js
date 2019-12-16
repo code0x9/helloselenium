@@ -1,6 +1,6 @@
 const {Given, When, Then, AfterAll} = require('cucumber');
 const {Builder, By, Capabilities, Key} = require('selenium-webdriver');
-const {expect} = require('chai');
+const assert = require('assert').strict;
 
 require("chromedriver");
 
@@ -24,7 +24,7 @@ When('I search for {string}', {timeout: 60 * 1000}, async function (searchTerm) 
 Then('the page title should start with {string}', {timeout: 60 * 1000}, async function (searchTerm) {
     const title = await driver.getTitle();
     const isTitleStartWithCheese = title.toLowerCase().lastIndexOf(`${searchTerm}`, 0) == 0;
-    expect(isTitleStartWithCheese).to.equal(true);
+    assert.ok(isTitleStartWithCheese);
 });
 
 Given('I am on the Naver search page', {timeout: 60 * 1000}, async function () {
@@ -40,7 +40,7 @@ Then('the first website link should go to namu wiki', {timeout: 60 * 1000}, asyn
     const site0 = await driver.findElement(By.xpath(`//*[@id="web_layer_0"]/dl/dt/a`));
     const site0Text = await site0.getText();
     const isTextEndsWithNamuWiki = site0Text.endsWith('나무위키');
-    expect(isTextEndsWithNamuWiki).to.equal(true);
+    assert.ok(isTextEndsWithNamuWiki);
 });
 
 AfterAll('end', async function () {
