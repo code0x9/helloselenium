@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chromedriver": "^79.0.0",
+    "chromedriver": "^80.0.1",
     "cucumber": "^6.0.5",
     "selenium-webdriver": "^4.0.0-alpha.5"
   }
