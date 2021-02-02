@@ -37,7 +37,7 @@ When('I search for {string} on naver', {timeout: 60 * 1000}, async function (sea
 });
 
 Then('the first website link should go to namu wiki', {timeout: 60 * 1000}, async function () {
-    const site0 = await driver.findElement(By.xpath(`//*[@id="web_layer_0"]/dl/dt/a`));
+    const site0 = await driver.findElement(By.xpath(`//*[@id="web_1"]/div/div[1]/div[2]/a`));
     const site0Text = await site0.getText();
     const isTextEndsWithNamuWiki = site0Text.endsWith('나무위키');
     assert.ok(isTextEndsWithNamuWiki);
