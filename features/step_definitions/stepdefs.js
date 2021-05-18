@@ -1,5 +1,5 @@
-const {Given, When, Then, AfterAll} = require('cucumber');
-const {Builder, By, Capabilities, Key} = require('selenium-webdriver');
+const {Given, When, Then, AfterAll} = require('@cucumber/cucumber');
+const {Builder, By, Capabilities, Key, until} = require('selenium-webdriver');
 const assert = require('assert').strict;
 
 require("chromedriver");
@@ -8,6 +8,7 @@ require("chromedriver");
 const capabilities = Capabilities.chrome();
 capabilities.set('chromeOptions', {"w3c": false});
 const driver = new Builder()
+    .forBrowser('chrome')
     .withCapabilities(capabilities)
     .build();
 
@@ -22,6 +23,7 @@ When('I search for {string}', {timeout: 60 * 1000}, async function (searchTerm) 
 });
 
 Then('the page title should start with {string}', {timeout: 60 * 1000}, async function (searchTerm) {
+    await driver.wait(until.titleIs(`${searchTerm} - Google Search`), 30000);
     const title = await driver.getTitle();
     const isTitleStartWithCheese = title.toLowerCase().lastIndexOf(`${searchTerm}`, 0) == 0;
     assert.ok(isTitleStartWithCheese);
@@ -43,6 +45,6 @@ Then('the first website link should go to namu wiki', {timeout: 60 * 1000}, asyn
     assert.ok(isTextEndsWithNamuWiki);
 });
 
-AfterAll('end', async function () {
+AfterAll(async function () {
     await driver.quit();
 });
