@@ -23,7 +23,7 @@ When('I search for {string}', {timeout: 60 * 1000}, async function (searchTerm) 
 });
 
 Then('the page title should start with {string}', {timeout: 60 * 1000}, async function (searchTerm) {
-    await driver.wait(until.titleIs(`${searchTerm} - Google Search`), 30000);
+    await driver.wait(until.titleContains(`Google Search`), 30000);
     const title = await driver.getTitle();
     const isTitleStartWithCheese = title.toLowerCase().lastIndexOf(`${searchTerm}`, 0) == 0;
     assert.ok(isTitleStartWithCheese);
@@ -39,7 +39,7 @@ When('I search for {string} on naver', {timeout: 60 * 1000}, async function (sea
 });
 
 Then('the first website link should go to namu wiki', {timeout: 60 * 1000}, async function () {
-    const site0 = await driver.findElement(By.xpath(`//*[@id="web_1"]/div/div[1]/div[2]/a`));
+    const site0 = await driver.findElement(By.xpath(`//*[@id="web_1"]/div/div[2]/div[2]/a`));
     const site0Text = await site0.getText();
     const isTextEndsWithNamuWiki = site0Text.endsWith('나무위키');
     assert.ok(isTextEndsWithNamuWiki);
